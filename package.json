@@ -1,0 +1,20 @@
+{
+  "name": "layout-shift-gif",
+  "version": "1.0.0",
+  "description": "Generates a .gif showing the layout shift events for a website.",
+  "main": "./layout-shift-gif.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris Johnson",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.6.1",
+    "gif-encoder-2": "^1.0.5",
+    "puppeteer": "^5.2.1",
+    "yargs": "^15.4.1"
+  },
+  "bin": {
+    "layout-shift-gif": "./layout-shift-gif.js"
+  }
+}
