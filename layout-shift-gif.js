@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 /* Args */
 const yargs = require('yargs')
 
