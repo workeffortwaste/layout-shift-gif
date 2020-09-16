@@ -192,4 +192,4 @@ async function createGif (url, device) {
   }
 }
 
-createGif(options.url, options.device, options.cookies, options.filename).then(e => console.log(e)).catch(e => console.log(e))
+createGif(options.url, options.device, options.filename).then(e => console.log(e)).catch(e => console.log(e))
