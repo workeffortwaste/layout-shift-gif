@@ -4,11 +4,12 @@
 const yargs = require('yargs')
 
 const options = yargs
-  .usage('Usage: --url <url> --device [mobile|desktop] --output <filename>')
+  .usage('Usage: --url <url> --device [mobile|desktop] --cookies <filename> --output <filename>')
   .example('layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layoutshift.gif')
-  .default({ device: 'mobile', output: 'layoutshift.gif' })
+  .default({ device: 'mobile', cookies: null, output: 'layoutshift.gif' })
   .describe('url', 'Website url')
   .describe('device', 'Device type [mobile|desktop]')
+  .describe('cookies', 'A JSON file with the cookies to send with the request')
   .describe('output', 'Output filename')
   .demandOption(['url'])
   .argv
@@ -74,6 +75,10 @@ async function createGif (url, device) {
 
   try {
     const page = await browser.newPage()
+    if (options.cookies) {
+      const cookies = JSON.parse(fs.readFileSync(options.cookies))
+      await page.setCookie(...cookies)
+    }
     const client = await page.target().createCDPSession()
     await client.send('Network.enable')
     await client.send('ServiceWorker.enable')
@@ -187,4 +192,4 @@ async function createGif (url, device) {
   }
 }
 
-createGif(options.url, options.device, options.filename).then(e => console.log(e)).catch(e => console.log(e))
+createGif(options.url, options.device, options.cookies, options.filename).then(e => console.log(e)).catch(e => console.log(e))
