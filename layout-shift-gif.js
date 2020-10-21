@@ -13,7 +13,9 @@ const options = yargs
   .default({ device: 'mobile', cookies: null, output: 'layoutshift.gif' })
   .describe('url', 'Website url')
   .describe('device', 'Device type [mobile|desktop]')
-  .describe('cookies', 'A JSON file with the cookies to send with the request')
+  .describe('width', 'Override device viewport width')
+  .describe('height', 'Override device viewport height')
+  .describe('cookies', 'JSON file with the cookies to send with the request')
   .describe('output', 'Output filename')
   .demandOption(['url'])
   .argv
@@ -94,8 +96,20 @@ async function createGif (url, device) {
     // Emulate a phone or standard desktop size.
     if (device === 'mobile') {
       await page.emulate(phone)
+      // Override viewport resolution if a width or height are manually supplied
+      if (options.width || options.height) {
+        await page.setViewport({
+          width: options.width || page.viewport().width,
+          height: options.height || page.viewport().height,
+          deviceScaleFactor: page.viewport().deviceScaleFactor
+        })
+      }
     } else {
-      await page.setViewport({ width: 1920, height: 1080 })
+      // Override viewport resolution if a width or height are manually supplied
+      await page.setViewport({
+        width: options.width || 1920,
+        height: options.height || 1080
+      })
     }
 
     // Initiate clsDetection at the earliest possible moment
