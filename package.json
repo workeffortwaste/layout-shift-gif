@@ -1,12 +1,20 @@
 {
   "name": "layout-shift-gif",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generates a .gif showing the layout shift events for a website.",
   "main": "./layout-shift-gif.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "keywords":[
+    "layout shift",
+    "cls",
+    "gif",
+    "cumulative layout shift",
+    "web vitals"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/workeffortwaste/layout-shift-gif.git"
   },
-  "author": "Chris Johnson",
+  "author": "Chris Johnson (https://defaced.dev)",
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.6.1",
@@ -16,5 +24,9 @@
   },
   "bin": {
     "layout-shift-gif": "./layout-shift-gif.js"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/workeffortwaste/layout-shift-gif/issues"
+  },
+  "homepage": "https://defaced.dev/tools/layout-shift-gif-generator/"
 }
