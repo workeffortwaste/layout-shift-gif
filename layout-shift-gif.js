@@ -101,7 +101,7 @@ async function createGif (url, device) {
         await page.setViewport({
           width: options.width || page.viewport().width,
           height: options.height || page.viewport().height,
-          deviceScaleFactor: page.viewport().deviceScaleFactor
+          deviceScaleFactor: 1
         })
       }
     } else {
