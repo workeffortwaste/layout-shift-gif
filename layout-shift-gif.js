@@ -38,7 +38,7 @@ const Good3G = {
 const phone = devices['Nexus 5X']
 
 /* Detect layout shift */
-function clsDetection () {
+const clsDetection = () => {
   window.cumulativeLayoutShiftScore = 0
   window.previousRect = []
   window.currentRect = []
@@ -64,7 +64,7 @@ function clsDetection () {
 }
 
 // Return the colours we're using for the CLS
-function getColor (cls) {
+const getColor = (cls) => {
   let c = { stroke: 'rgba(0,128,0,.7)', fill: 'rgba(0,128,0,.1)', solid: 'rgb(0,128,0,1)' }
   if (cls >= 0.1) {
     c = { stroke: 'rgba(255,125,0,.5)', fill: 'rgba(255,125,0,.05)', solid: 'rgba(255,125,0,1)' }
@@ -75,7 +75,7 @@ function getColor (cls) {
   return c
 }
 
-async function createGif (url, device) {
+const createGif = async (url, device) => {
   // Launch puppeteer
   const browser = await puppeteer.launch({ args: ['--no-sandbox'], timeout: 10000 })
 
@@ -152,7 +152,7 @@ async function createGif (url, device) {
     const ctx = canvas.getContext('2d')
 
     // Canvas setup function
-    const canvasSetup = function () {
+    const canvasSetup = () => {
       // Add the screenshot to each frame
       ctx.drawImage(image, 0, 0, image.width, image.height)
       // Add the CLS score in the top left corner
