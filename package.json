@@ -1,6 +1,6 @@
 {
   "name": "layout-shift-gif",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Generates a .gif showing the layout shift events for a website.",
   "main": "./layout-shift-gif.js",
   "keywords": [
@@ -19,7 +19,7 @@
   "dependencies": {
     "canvas": "^2.6.1",
     "gif-encoder-2": "^1.0.5",
-    "puppeteer": "^5.2.1",
+    "puppeteer": "^5.5.0",
     "yargs": "^15.4.1"
   },
   "bin": {
@@ -30,8 +30,8 @@
   },
   "homepage": "https://defaced.dev/tools/layout-shift-gif-generator/",
   "devDependencies": {
-    "eslint": "^7.13.0",
-    "eslint-config-standard": "^16.0.1",
+    "eslint": "^7.14.0",
+    "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1"

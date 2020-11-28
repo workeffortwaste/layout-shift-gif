@@ -77,7 +77,7 @@ const getColor = (cls) => {
 
 const createGif = async (url, device) => {
   // Launch puppeteer
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'], timeout: 10000 })
+  const browser = await puppeteer.launch({ ignoreHTTPSErrors: true, args: ['--no-sandbox'], timeout: 10000 })
 
   try {
     const page = await browser.newPage()
