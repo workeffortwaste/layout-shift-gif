@@ -66,10 +66,10 @@ const clsDetection = () => {
 // Return the colours we're using for the CLS
 const getColor = (cls) => {
   let c = { stroke: 'rgba(0,128,0,.7)', fill: 'rgba(0,128,0,.1)', solid: 'rgb(0,128,0,1)' }
-  if (cls >= 0.1) {
+  if (cls > 0.1) {
     c = { stroke: 'rgba(255,125,0,.5)', fill: 'rgba(255,125,0,.05)', solid: 'rgba(255,125,0,1)' }
   }
-  if (cls >= 0.25) {
+  if (cls > 0.25) {
     c = { stroke: 'rgba(255,0,0,.5)', fill: 'rgba(255,0,0,.05)', solid: 'rgba(255,0,0,1)' }
   }
   return c
