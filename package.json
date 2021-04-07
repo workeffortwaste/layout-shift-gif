@@ -19,7 +19,7 @@
   "dependencies": {
     "canvas": "^2.6.1",
     "gif-encoder-2": "^1.0.5",
-    "puppeteer": "^5.5.0",
+    "puppeteer": "^8.0.0",
     "yargs": "^15.4.1"
   },
   "bin": {
