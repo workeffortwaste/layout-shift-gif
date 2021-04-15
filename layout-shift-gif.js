@@ -96,6 +96,11 @@ const createGif = async (url, device) => {
     // Emulate a phone or standard desktop size.
     if (device === 'mobile') {
       await page.emulate(phone)
+      await page.setViewport({
+        width: 412,
+        height: 732,
+        deviceScaleFactor: 1
+      })
       // Override viewport resolution if a width or height are manually supplied
       if (options.width || options.height) {
         await page.setViewport({
