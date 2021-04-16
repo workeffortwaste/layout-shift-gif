@@ -1,6 +1,6 @@
 {
   "name": "layout-shift-gif",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "Generates a .gif showing the layout shift events for a website.",
   "main": "./layout-shift-gif.js",
   "keywords": [

@@ -8,15 +8,16 @@
 const yargs = require('yargs')
 
 const options = yargs
-  .usage('Usage: --url <url> --device [mobile|desktop] --cookies <filename> --output <filename>')
+  .usage('Usage: --url <url> --device [mobile|desktop] --cookies <filename> --output <filename> --type <new|old>')
   .example('layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layoutshift.gif')
-  .default({ device: 'mobile', cookies: null, output: 'layoutshift.gif' })
+  .default({ device: 'mobile', cookies: null, output: 'layoutshift.gif', type: 'new' })
   .describe('url', 'Website url')
   .describe('device', 'Device type [mobile|desktop]')
   .describe('width', 'Override device viewport width')
   .describe('height', 'Override device viewport height')
   .describe('cookies', 'JSON file with the cookies to send with the request')
   .describe('output', 'Output filename')
+  .describe('type', 'The method of calculating CLS [new|old]')
   .demandOption(['url'])
   .argv
 
@@ -38,25 +39,34 @@ const Good3G = {
 const phone = devices['Nexus 5X']
 
 /* Detect layout shift */
-const clsDetection = () => {
+const clsDetection = (type) => {
   window.cumulativeLayoutShiftScore = 0
   window.previousRect = []
   window.currentRect = []
   window.shifts = []
+  let firstTs = Number.NEGATIVE_INFINITY
+  let prevTs = Number.NEGATIVE_INFINITY
 
   const observer = new PerformanceObserver((list) => {
     for (const entry of list.getEntries()) {
-      if (!entry.hadRecentInput) {
-        entry.sources.forEach((e) => {
-          window.previousRect.push(JSON.parse(JSON.stringify(e.previousRect)))
-          window.currentRect.push(JSON.parse(JSON.stringify(e.currentRect)))
-          window.shifts.push(entry.value)
-        })
-        window.cumulativeLayoutShiftScore += entry.value
-        window.onload = (event) => {
-          observer.takeRecords()
-          observer.disconnect()
+      if (entry.hadRecentInput) continue
+      if (type === 'new') {
+        if (entry.startTime - firstTs > 5000 || entry.startTime - prevTs > 1000) {
+          firstTs = entry.startTime
+          window.cumulativeLayoutShiftScore = 0
+          window.shifts = []
         }
+        prevTs = entry.startTime
+      }
+      entry.sources.forEach((e) => {
+        window.previousRect.push(JSON.parse(JSON.stringify(e.previousRect)))
+        window.currentRect.push(JSON.parse(JSON.stringify(e.currentRect)))
+        window.shifts.push(entry.value)
+      })
+      window.cumulativeLayoutShiftScore += entry.value
+      window.onload = (event) => {
+        observer.takeRecords()
+        observer.disconnect()
       }
     }
   })
@@ -118,7 +128,7 @@ const createGif = async (url, device) => {
     }
 
     // Initiate clsDetection at the earliest possible moment
-    await page.evaluateOnNewDocument(clsDetection)
+    await page.evaluateOnNewDocument(clsDetection, options.type)
 
     // Navigate to the page and wait until it's hit the load event, 120s timeout for tries
     await page.goto(url, { waitUntil: 'load', timeout: 120000 })
