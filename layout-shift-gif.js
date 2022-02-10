@@ -5,9 +5,22 @@
  */
 
 /* Args */
-const yargs = require('yargs')
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
 
-const options = yargs
+/* Puppeteer */
+import puppeteer from 'puppeteer'
+
+/* Misc */
+import fs from 'fs'
+import tmp from 'tmp'
+
+/* Image generation */
+import GIFEncoder from 'gif-encoder-2'
+import pkg from 'canvas'
+const { createCanvas, loadImage } = pkg
+
+const options = yargs(hideBin(process.argv))
   .usage('Usage: --url <url> --device [mobile|desktop] --cookies <filename> --output <filename> --type <new|old>')
   .example('layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layout-shift.gif')
   .default({ device: 'mobile', cookies: null, output: 'layout-shift.gif', type: 'new' })
@@ -21,12 +34,7 @@ const options = yargs
   .demandOption(['url'])
   .argv
 
-const puppeteer = require('puppeteer')
 const devices = puppeteer.devices
-const { createCanvas, loadImage } = require('canvas')
-const GIFEncoder = require('gif-encoder-2')
-const fs = require('fs')
-const tmp = require('tmp')
 
 /* Network conditions */
 const Good3G = {
