@@ -26,21 +26,21 @@ This will generate an animated `layout-shift.gif` of `https://blacklivesmatter.c
 
 #### Options
 
-| Option    | Alias | Default     | Description                                                                                                                                                                                                                                                                                                           |   |   |   |   |
-|-----------|-------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|---|---|---|
-| --url     | -u    | (null)      | The URL of the page you want to generate a Layout Shift GIF from. **(Required)**                                                                                                                                                                                                                                     |   |   |   |   |
-| --device  | -d    | mobile      | The type of the device you wish to simulate.                                                                                                                                                                                                                                                                          |   |   |   |   |
-| --width   | -w    | (412\|1920) | Override the device viewport width.                                                                                                                                                                                                                                                                                   |   |   |   |   |
-| --height  | -h    | (732\|1080) | Override the device viewport height                                                                                                                                                                                                                                                                                   |   |   |   |   |
-| --cookies | -c    | (null)      | Supply a cookie file in the Puppeteer JSON format. I recommend using this Chrome Extension to export your cookies. [Link](https://chrome.google.com/webstore/detail/%E3%82%AF%E3%83%83%E3%82%AD%E3%83%BCjson%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%87%BA%E5%8A%9B-for-puppet/nmckokihipjgplolmcmjakknndddifde?hl=en) |   |   |   |   |
+| Option    | Alias | Default     | Description                                                                                                                                                                                                                                                                                                           |
+|-----------|-------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --url     | -u    | (null)      | The URL of the page you want to generate a Layout Shift GIF from. **(Required)**                                                                                                                                                                                                                                     |
+| --device  | -d    | mobile      | The type of the device you wish to simulate.                                                                                                                                                                                                                                                                          |
+| --width   | -w    | (412\|1920) | Override the device viewport width.                                                                                                                                                                                                                                                                                   |
+| --height  | -h    | (732\|1080) | Override the device viewport height                                                                                                                                                                                                                                                                                   |
+| --cookies | -c    | (null)      | Supply a cookie file in the Puppeteer JSON format. I recommend using [this Chrome Extension](https://chrome.google.com/webstore/detail/%E3%82%AF%E3%83%83%E3%82%AD%E3%83%BCjson%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%87%BA%E5%8A%9B-for-puppet/nmckokihipjgplolmcmjakknndddifde?hl=en) to export your cookies in the correct format. 
 
 ### Device Simulation
 
 The tool is able to check both a desktop and a mobile viewport.
 
-- _The `desktop` viewport is a standard 1920x1080 resolution._
+- The `desktop` viewport is a standard 1920x1080 resolution.
 
-- _The `mobile` viewport is the Nexus 5X profile from Lighthouse._
+- The `mobile` viewport is the Nexus 5X profile from Lighthouse.
 
 Both the CPU and the network are throttled simulating a `good 3G network`.
 
@@ -58,9 +58,9 @@ The screenshot of the page is taken after all the page elements have shifted and
 
 The border style of an outlined element represents the start and end positions of the elements shift.
 
-- _A dashed border indicates the element's starting position._
+- A `dashed` border indicates the element's starting position.
 
-- _A solid border indicates the element's end position._
+- A `solid` border indicates the element's end position.
 
 ### Border Colour
 
