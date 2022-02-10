@@ -24,7 +24,7 @@ Once installed the tool can be used as per the following example.
 
 This will generate an animated `layout-shift.gif` of `https://blacklivesmatter.com/` showing the regions of Cumulative Layout Shift on the viewport of a simulated `mobile` device.
 
-#### Options
+#### Command Line Options
 
 
 | Option  | Alias | Default          | Description                                                                                                                                                                                                                                                                                                                                            |
