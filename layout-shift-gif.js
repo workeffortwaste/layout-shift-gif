@@ -26,6 +26,7 @@ const devices = puppeteer.devices
 const { createCanvas, loadImage } = require('canvas')
 const GIFEncoder = require('gif-encoder-2')
 const fs = require('fs')
+const tmp = require('tmp')
 
 /* Network conditions */
 const Good3G = {
@@ -144,14 +145,17 @@ const createGif = async (url, device) => {
     })
     output.scaleFactor = page.viewport().deviceScaleFactor || 1
 
+    // Set up the tmp directory
+    const tmpobj = tmp.dirSync()
+
     // Take a screenshot of the page after it's loaded.
-    await page.screenshot({ path: 'temp-screenshot.png' })
+    await page.screenshot({ path: tmpobj.name + '/temp-screenshot.png' })
 
     // Close the browser.
     browser.close()
 
     // Load the puppeteer screenshot from the fs
-    const image = await loadImage('./temp-screenshot.png')
+    const image = await loadImage(tmpobj.name + '/temp-screenshot.png')
 
     // Start a gif encoder at the resolution of our screenshot
     const encoder = new GIFEncoder(image.width, image.height)
