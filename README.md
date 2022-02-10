@@ -2,7 +2,7 @@
 
 [https://defaced.dev/tools/layout-shift-gif-generator/](https://defaced.dev/tools/layout-shift-gif-generator/)
 
-Visualise the Core Web Vitals metric Cumulative Layout Shift (CLS) with a simple GIF.
+_Visualise the Core Web Vitals metric Cumulative Layout Shift (CLS) with a simple GIF._
 
 Lighthouse is a great tool for identifying your overall Cumulative Layout Shift (CLS) score, but it's not so great for quickly visualising what's actually shifting on a page. The Layout Shift GIF Generator allows you to quickly identify which elements are moving around in the viewport.
 
