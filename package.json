@@ -21,6 +21,8 @@
     "canvas": "^2.9.0",
     "gif-encoder-2": "^1.0.5",
     "puppeteer": "^13.3.0",
+    "puppeteer-extra": "^3.2.3",
+    "puppeteer-extra-plugin-stealth": "^2.9.0",
     "tmp": "^0.2.1",
     "yargs": "^17.3.1"
   },

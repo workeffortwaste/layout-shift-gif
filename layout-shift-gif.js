@@ -9,7 +9,8 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
 /* Puppeteer */
-import puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer-extra'
+import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 
 /* Misc */
 import fs from 'fs'
@@ -19,6 +20,9 @@ import tmp from 'tmp'
 import GIFEncoder from 'gif-encoder-2'
 import pkg from 'canvas'
 const { createCanvas, loadImage } = pkg
+
+/* Evade bot detection */
+puppeteer.use(StealthPlugin())
 
 const options = yargs(hideBin(process.argv))
   .usage('Usage: --url <url> --device [mobile|desktop] --cookies <filename> --output <filename> --type <new|old>')
