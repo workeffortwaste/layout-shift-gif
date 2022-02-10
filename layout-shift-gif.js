@@ -28,13 +28,20 @@ const options = yargs(hideBin(process.argv))
   .usage('Usage: --url <url> --device [mobile|desktop] --cookies <filename> --output <filename> --type <new|old>')
   .example('layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layout-shift.gif')
   .default({ device: 'mobile', cookies: null, output: 'layout-shift.gif', type: 'new' })
-  .describe('url', 'Website url')
-  .describe('device', 'Device type [mobile|desktop]')
-  .describe('width', 'Override device viewport width')
-  .describe('height', 'Override device viewport height')
-  .describe('cookies', 'JSON file with the cookies to send with the request')
-  .describe('output', 'Output filename')
-  .describe('type', 'The method of calculating CLS [new|old]')
+  .describe('u', 'Website url')
+  .describe('d', 'Device type [mobile|desktop]')
+  .describe('w', 'Override device viewport width')
+  .describe('h', 'Override device viewport height')
+  .describe('c', 'JSON file with the cookies to send with the request')
+  .describe('o', 'Output filename')
+  .describe('t', 'The method of calculating CLS [new|old]')
+  .alias('u', 'url')
+  .alias('d', 'device')
+  .alias('w', 'width')
+  .alias('h', 'height')
+  .alias('c', 'cookies')
+  .alias('o', 'output')
+  .alias('t', 'type')
   .demandOption(['url'])
   .argv
 
@@ -88,13 +95,28 @@ const clsDetection = (type) => {
 
 // Return the colours we're using for the CLS
 const getColor = (cls) => {
-  let c = { stroke: 'rgba(0,128,0,.7)', fill: 'rgba(0,128,0,.1)', solid: 'rgb(0,128,0,1)' }
+  let c = {
+    stroke: 'rgba(0,128,0,.7)',
+    fill: 'rgba(0,128,0,.1)',
+    solid: 'rgb(0,128,0,1)'
+  }
+
   if (cls > 0.1) {
-    c = { stroke: 'rgba(255,125,0,.5)', fill: 'rgba(255,125,0,.05)', solid: 'rgba(255,125,0,1)' }
+    c = {
+      stroke: 'rgba(255,125,0,.5)',
+      fill: 'rgba(255,125,0,.05)',
+      solid: 'rgba(255,125,0,1)'
+    }
   }
+
   if (cls > 0.25) {
-    c = { stroke: 'rgba(255,0,0,.5)', fill: 'rgba(255,0,0,.05)', solid: 'rgba(255,0,0,1)' }
+    c = {
+      stroke: 'rgba(255,0,0,.5)',
+      fill: 'rgba(255,0,0,.05)',
+      solid: 'rgba(255,0,0,1)'
+    }
   }
+
   return c
 }
 
