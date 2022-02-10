@@ -25,7 +25,7 @@ const { createCanvas, loadImage } = pkg
 puppeteer.use(StealthPlugin())
 
 const options = yargs(hideBin(process.argv))
-  .usage('Usage: --url <url> --device [mobile|desktop] --cookies <filename> --output <filename> --type <new|old>')
+  .usage('Usage: --url <url> --device <mobile|desktop> --cookies <filename> --output <filename> --type <new|old>')
   .example('layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layout-shift.gif')
   .default({ device: 'mobile', cookies: null, output: 'layout-shift.gif', type: 'new' })
   .describe('u', 'Website url')
