@@ -45,8 +45,6 @@ const options = yargs(hideBin(process.argv))
   .demandOption(['url'])
   .argv
 
-const devices = puppeteer.devices
-
 /* Network conditions */
 const Good3G = {
   offline: false,
@@ -56,7 +54,18 @@ const Good3G = {
 }
 
 /* Device for mobile emulation */
-const phone = devices['Nexus 5X']
+const phone = {
+  name: 'Nexus 5X',
+  userAgent: 'Mozilla/5.0 (Linux; Android 8.0.0; Nexus 5X Build/OPR4.170623.006) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3765.0 Mobile Safari/537.36',
+  viewport: {
+    width: 412,
+    height: 732,
+    deviceScaleFactor: 2.625,
+    isMobile: true,
+    hasTouch: true,
+    isLandscape: false
+  }
+}
 
 /* Detect layout shift */
 const clsDetection = (type) => {
