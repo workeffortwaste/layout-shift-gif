@@ -9,8 +9,8 @@ const yargs = require('yargs')
 
 const options = yargs
   .usage('Usage: --url <url> --device [mobile|desktop] --cookies <filename> --output <filename> --type <new|old>')
-  .example('layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layoutshift.gif')
-  .default({ device: 'mobile', cookies: null, output: 'layoutshift.gif', type: 'new' })
+  .example('layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layout-shift.gif')
+  .default({ device: 'mobile', cookies: null, output: 'layout-shift.gif', type: 'new' })
   .describe('url', 'Website url')
   .describe('device', 'Device type [mobile|desktop]')
   .describe('width', 'Override device viewport width')
