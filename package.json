@@ -17,11 +17,11 @@
   "author": "Chris Johnson (https://defaced.dev)",
   "license": "ISC",
   "dependencies": {
-    "canvas": "^2.6.1",
+    "canvas": "^2.9.0",
     "gif-encoder-2": "^1.0.5",
     "puppeteer": "^13.3.0",
     "tmp": "^0.2.1",
-    "yargs": "^15.4.1"
+    "yargs": "^17.3.1"
   },
   "bin": {
     "layout-shift-gif": "./layout-shift-gif.js"
