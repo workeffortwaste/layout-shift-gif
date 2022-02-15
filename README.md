@@ -6,7 +6,7 @@ _Visualise the Core Web Vitals metric Cumulative Layout Shift (CLS) with a simpl
 
 Lighthouse is a great tool for identifying your overall Cumulative Layout Shift (CLS) score, but it's not so great for quickly visualising what's actually shifting on a page. The Layout Shift GIF Generator allows you to quickly identify which elements are moving around in the viewport.
 
-**Like this project? Help support my projects and buy me a coffee via [Ko-fi](https://ko-fi.com/defaced) or sponsor me on [GitHub Sponsors](https://github.com/sponsors/workeffortwaste/)**.
+> **Support this project** <br/> Help support the work that goes into creating and maintaining my projects and buy me a coffee via [Ko-fi](https://ko-fi.com/defaced) or sponsor me on [GitHub Sponsors](https://github.com/sponsors/workeffortwaste/).
 
 ## Getting Started
 
@@ -14,28 +14,77 @@ Lighthouse is a great tool for identifying your overall Cumulative Layout Shift 
 
 The Layout Shift GIF Generator command line tool can be installed directly from NPM.
 
-`npm install -g layout-shift-gif`
+```
+npm install -g layout-shift-gif
+```
 
 ### Usage
 
 Once installed the tool can be used as per the following example.
 
-`layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layout-shift.gif`
+```
+layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layout-shift.gif
+```
 
 This will generate an animated `layout-shift.gif` of `https://blacklivesmatter.com/` showing the regions of Cumulative Layout Shift on the viewport of a simulated `mobile` device.
 
-#### Command Line Options
+### Options
+
+```
+Usage: layout-shift-gif --url <url>
+
+Options:
+      --help     Show help                                             [boolean]
+      --version  Show version number                                   [boolean]
+  -u, --url      Website URL                                 [string] [required]
+  -d, --device   Device type                        [string] [default: "mobile"]
+  -w, --width    Device viewport width                                  [number]
+  -h, --height   Device viewport height                                 [number]
+  -c, --cookies  Cookie filename                                        [string]
+  -o, --output   Output filename          [string] [default: "layout-shift.gif"]
+  -t, --type     CLS calculation method                [string] [default: "new"]
+
+Examples:
+  layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --outpu
+  t layout-shift.gif
+```
+## Examples
+### Basic Examples
+
+#### Simulated Mobile Device
+
+```
+layout-shift-gif --url https://blacklivesmatter.com/ --device mobile
+```
+
+#### Simulated Desktop Device
+
+```
+layout-shift-gif --url https://blacklivesmatter.com/ --device desktop
+```
+
+### Advanced Examples
+
+#### Supplying Cookies
+
+You can supply a cookie file in the Puppeteer JSON format allowing you to bypass cookie notices, or interstitals.
+
+I recommend using the [Export cookie JSON file for Puppeteer](https://chrome.google.com/webstore/detail/%E3%82%AF%E3%83%83%E3%82%AD%E3%83%BCjson%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%87%BA%E5%8A%9B-for-puppet/nmckokihipjgplolmcmjakknndddifde?hl=en) Chrome extension to export your cookies in the correct format.
+
+```
+layout-shift-gif --url https://blacklivesmatter.com/ --cookies cookies.json
+```
+
+#### Original CLS Calculation Method
+
+In June 2021 Google changed how they [calculate the CLS metric](https://web.dev/cls-web-tooling/). Layout Shift GIF Generator defaults to the newest method, but if you require the old method it can still be access viable the `--type` option.
 
 
-| Option  | Alias | Default          | Description                                                                                                                                                                                                                                                                                                                                            |
-|-----------|-------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| url     | -u    |                  | **(Required)** The URL of the page you want to generate a Layout Shift GIF from.                                                                                                                                                                                                                                                                       |
-| output  | -o    | layout-shift.gif | The output filename for the final .gif.                                                                                                                                                                                                                                                                                                                |
-| device  | -d    | mobile           | The type of the device you wish to simulate.                                                                                                                                                                                                                                                                                                           |
-| width   | -w    | (412\|1920)      | Override the device viewport width.                                                                                                                                                                                                                                                                                                                    |
-| height  | -h    | (732\|1080)      | Override the device viewport height                                                                                                                                                                                                                                                                                                                    |
-| cookies | -c    |                  | Supply a cookie file in the Puppeteer JSON format. I recommend using this Chrome Extension to export your cookies. [Export cookie JSON file for Puppeteer](https://chrome.google.com/webstore/detail/%E3%82%AF%E3%83%83%E3%82%AD%E3%83%BCjson%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%87%BA%E5%8A%9B-for-puppet/nmckokihipjgplolmcmjakknndddifde?hl=en) |
-| type    | -t    | new              | The method of calcuating the the layout shift.                                                                                                                                                                                                                                                                                                         |
+```
+layout-shift-gif --url https://blacklivesmatter.com/ --type old
+```
+
+
 ### Device Simulation
 
 The tool is able to check both a desktop and a mobile viewport.
@@ -44,13 +93,15 @@ The tool is able to check both a desktop and a mobile viewport.
 
 - The `mobile` viewport is the Nexus 5X profile from Lighthouse.
 
-Both the CPU and the network are throttled simulating a `good 3G network`.
+Both the CPU and the network are throttled to simulate a `good 3G network`.
 
 ## Hosted Version
 
 If you don't wish to use the CLI version there is also a free hosted version running in a cloud function available on [defaced.dev](https://defaced.dev/tools/layout-shift-gif-generator/)
 
-## Understanding The GIF
+## Output
+
+An outline of how to interpret the GIF output from this tool.
 
 ### Page Screenshot
 
@@ -70,11 +121,11 @@ The border colour of an outlined element represents the CLS score of that elemen
 
 [Defining the Core Web Vitals metrics thresholds](https://web.dev/defining-core-web-vitals-thresholds/)
 
-🟢 Good ≤0.1  
+🟢 Good `≤` 0.1  
 
 🟠 Needs Improvement 	
 
-🔴 Poor >0.25 
+🔴 Poor `>` 0.25 
 
 This means that if you see a shifting element with a red or orange outline then this element alone is contributing significantly to a negative CLS score for that page.
 
@@ -88,11 +139,18 @@ The colour of the top left corner represents where the pages overall CLS score f
 
 [Defining the Core Web Vitals metrics thresholds](https://web.dev/defining-core-web-vitals-thresholds/)
 
-🟢 Good ≤0.1  
+🟢 Good `≤` 0.1  
 
 🟠 Needs Improvement 	
 
-🔴 Poor >0.25 
+🔴 Poor `>` 0.25 
+
+## Sponsors
+
+If you find this project useful please considering sponsoring me on [GitHub Sponsors](https://github.com/sponsors/workeffortwaste/) and help support the work that goes into creating and maintaining my projects.
+### Bonus
+
+Sponsors are able to remove the project support message from all my projects, as well as access other additional perks.
 
 ## Author
 
