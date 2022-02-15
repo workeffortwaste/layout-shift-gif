@@ -24,17 +24,47 @@ const { createCanvas, loadImage } = pkg
 /* Evade bot detection */
 puppeteer.use(StealthPlugin())
 
+/* Colors */
+const colors = {
+  reset: '\x1b[0m',
+  underscore: '\x1b[4m',
+  magenta: '\x1b[35m',
+  blue: '\x1b[34m',
+  green: '\x1b[32m',
+  red: '\x1b[31m',
+  yellow: '\x1b[33m'
+}
+
+/* About */
+const { version } = JSON.parse(fs.readFileSync('./package.json'))
+console.log(`layout-shift-gif ${version} / ${colors.blue}@defaced${colors.reset}`)
+
+/* Support */
+if (!process.env.WORKEFFORTWASTE_SUPPORTER) {
+  console.log(`${colors.magenta}
+┃
+┃ ${colors.underscore}Support this project! ${colors.reset}${colors.magenta}
+┃
+┃ Help support the work that goes into creating and maintaining my projects
+┃ and buy me a coffee via Ko-fi or sponsor me on GitHub Sponsors.
+┃
+┃ Ko-fi: https://ko-fi.com/defaced
+┃ GitHub Sponsors: https://github.com/sponsors/workeffortwaste/
+┃${colors.reset}
+  `)
+}
+
 const options = yargs(hideBin(process.argv))
-  .usage('Usage: --url <url> --device <mobile|desktop> --cookies <filename> --output <filename> --type <new|old>')
+  .usage('Usage: layout-shift-gif --url <url>')
   .example('layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layout-shift.gif')
-  .default({ device: 'mobile', cookies: null, output: 'layout-shift.gif', type: 'new' })
-  .describe('u', 'Website url')
-  .describe('d', 'Device type [mobile|desktop]')
-  .describe('w', 'Override device viewport width')
-  .describe('h', 'Override device viewport height')
-  .describe('c', 'JSON file with the cookies to send with the request')
+  .default({ d: 'mobile', o: 'layout-shift.gif', t: 'new' })
+  .describe('u', 'Website URL')
+  .describe('d', 'Device type')
+  .describe('w', 'Device viewport width')
+  .describe('h', 'Device viewport height')
+  .describe('c', 'Cookie filename')
   .describe('o', 'Output filename')
-  .describe('t', 'The method of calculating CLS [new|old]')
+  .describe('t', 'CLS calculation method')
   .alias('u', 'url')
   .alias('d', 'device')
   .alias('w', 'width')
@@ -42,7 +72,10 @@ const options = yargs(hideBin(process.argv))
   .alias('c', 'cookies')
   .alias('o', 'output')
   .alias('t', 'type')
+  .number(['h', 'w'])
+  .string(['u', 'd', 'c', 'o', 't'])
   .demandOption(['url'])
+  .epilogue('For more information visit documentation at: \nhttp://github.com/workeffortwaste/layout-shift-gif')
   .argv
 
 /* Network conditions */
@@ -265,11 +298,21 @@ const createGif = async (url, device) => {
     encoder.finish()
     fs.writeFileSync(options.output, encoder.out.getData())
     // Pass back the CLS score
-    return 'CLS: ' + output.score.toFixed(3)
+    return output.score.toFixed(3)
   } catch (error) {
     browser.close()
     throw (error)
   }
 }
 
-createGif(options.url, options.device, options.filename).then(e => console.log(e)).catch(e => console.log(e))
+createGif(options.url, options.device, options.filename)
+  .then(e => {
+    let scoreColor = colors.green
+
+    if (e > 0.1) scoreColor = colors.yellow
+    if (e > 0.25) scoreColor = colors.red
+
+    console.log(`Cumulative layout shift (CLS) ${scoreColor}${e}${colors.reset}`)
+    console.log(`Image succesfully saved as ${colors.blue}${options.output}${colors.reset}`)
+  })
+  .catch(e => console.log(e))
