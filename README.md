@@ -85,7 +85,7 @@ layout-shift-gif --url https://blacklivesmatter.com/ --type old
 ```
 
 
-### Device Simulation
+## Device Simulation
 
 The tool is able to check both a desktop and a mobile viewport.
 
@@ -117,9 +117,7 @@ The border style of an outlined element represents the start and end positions o
 
 ### Border Colour
 
-The border colour of an outlined element represents the CLS score of that element against the overall page thresholds for CLS outlined by Google. 
-
-[Defining the Core Web Vitals metrics thresholds](https://web.dev/defining-core-web-vitals-thresholds/)
+The border colour of an outlined element represents the CLS score of that element against the overall page thresholds for CLS [outlined by Google](https://web.dev/defining-core-web-vitals-thresholds/).
 
 🟢 Good `≤` 0.1  
 
@@ -135,9 +133,7 @@ The metric in the top left corner is the overall CLS score for that page and is 
 
 ### Corner Colour
 
-The colour of the top left corner represents where the pages overall CLS score fits within the thresholds for CLS outlined by Google.
-
-[Defining the Core Web Vitals metrics thresholds](https://web.dev/defining-core-web-vitals-thresholds/)
+The colour of the top left corner represents where the pages overall CLS score fits within the thresholds for CLS [outlined by Google](https://web.dev/defining-core-web-vitals-thresholds/).
 
 🟢 Good `≤` 0.1  
 
@@ -150,7 +146,7 @@ The colour of the top left corner represents where the pages overall CLS score f
 If you find this project useful please considering sponsoring me on [GitHub Sponsors](https://github.com/sponsors/workeffortwaste/) and help support the work that goes into creating and maintaining my projects.
 ### Bonus
 
-Sponsors are able to remove the project support message from all my projects, as well as access other additional perks.
+Sponsors are able to remove the project support message from all my CLI projects, as well as access other additional perks.
 
 ## Author
 
