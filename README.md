@@ -31,8 +31,6 @@ This will generate an animated `layout-shift.gif` of `https://blacklivesmatter.c
 ### Options
 
 ```
-Usage: layout-shift-gif --url <url>
-
 Options:
       --help     Show help                                             [boolean]
       --version  Show version number                                   [boolean]
@@ -43,10 +41,6 @@ Options:
   -c, --cookies  Cookie filename                                        [string]
   -o, --output   Output filename          [string] [default: "layout-shift.gif"]
   -t, --type     CLS calculation method                [string] [default: "new"]
-
-Examples:
-  layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --outpu
-  t layout-shift.gif
 ```
 ## Examples
 ### Basic Examples
