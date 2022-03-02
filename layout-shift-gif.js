@@ -36,7 +36,7 @@ const colors = {
 }
 
 /* About */
-const { version } = JSON.parse(fs.readFileSync('./package.json'))
+const { version } = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url)))
 console.log(`layout-shift-gif ${version} / ${colors.blue}@defaced${colors.reset}`)
 
 /* Support */
