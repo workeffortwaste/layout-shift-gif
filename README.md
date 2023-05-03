@@ -6,7 +6,7 @@ _Visualise the Core Web Vitals metric Cumulative Layout Shift (CLS) with a simpl
 
 Lighthouse is a great tool for identifying your overall Cumulative Layout Shift (CLS) score, but it's not so great for quickly visualising what's actually shifting on a page. The Layout Shift GIF Generator allows you to quickly identify which elements are moving around in the viewport.
 
-> **Support this project** <br/> Help support the work that goes into creating and maintaining my projects and buy me a coffee via [Ko-fi](https://ko-fi.com/defaced) or sponsor me on [GitHub Sponsors](https://github.com/sponsors/workeffortwaste/).
+> **Support this project** <br/> Help support the work that goes into creating and maintaining my projects and sponsor me via [GitHub Sponsors](https://github.com/sponsors/workeffortwaste/).
 
 ## Getting Started
 
