@@ -12,19 +12,46 @@ Lighthouse is a great tool for identifying your overall Cumulative Layout Shift 
 
 ### Installation
 
-The Layout Shift GIF Generator command line tool can be installed directly from NPM.
+The Layout Shift GIF Generator command line tool can be installed directly from NPM or yarn.
 
+Global
+
+npm
 ```
 npm install -g layout-shift-gif
+```
+
+yarn
+```
+yarn global add layout-shift-gif
+```
+
+Local
+
+npm
+```
+npm install layout-shift-gif
+```
+
+yarn
+```
+yarn add layout-shift-gif
 ```
 
 ### Usage
 
 Once installed the tool can be used as per the following example.
 
+Global
 ```
 layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layout-shift.gif
 ```
+
+Local
+```
+npx layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layout-shift.gif
+```
+
 
 This will generate an animated `layout-shift.gif` of `https://blacklivesmatter.com/` showing the regions of Cumulative Layout Shift on the viewport of a simulated `mobile` device.
 
