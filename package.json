@@ -18,13 +18,13 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "canvas": "^2.9.0",
+    "canvas": "^3.0.1",
     "gif-encoder-2": "^1.0.5",
-    "puppeteer": "^13.3.0",
-    "puppeteer-extra": "^3.2.3",
-    "puppeteer-extra-plugin-stealth": "^2.9.0",
-    "tmp": "^0.2.1",
-    "yargs": "^17.3.1"
+    "puppeteer": "^23.11.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "tmp": "^0.2.3",
+    "yargs": "^17.7.2"
   },
   "bin": {
     "layout-shift-gif": "./layout-shift-gif.js"
