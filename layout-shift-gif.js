@@ -37,7 +37,7 @@ const colors = {
 
 /* About */
 const { version } = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url)))
-console.log(`layout-shift-gif ${version} / ${colors.blue}@defaced${colors.reset}`)
+console.log(`layout-shift-gif ${version} /  ${colors.blue}@defaced.dev (bluesky)${colors.reset}`)
 
 /* Support */
 if (!process.env.WORKEFFORTWASTE_SUPPORTER) {
@@ -46,9 +46,8 @@ if (!process.env.WORKEFFORTWASTE_SUPPORTER) {
 ┃ ${colors.underscore}Support this project! ${colors.reset}${colors.magenta}
 ┃
 ┃ Help support the work that goes into creating and maintaining my projects
-┃ and buy me a coffee via Ko-fi or sponsor me on GitHub Sponsors.
+┃ and consider donating via on GitHub Sponsors.
 ┃
-┃ Ko-fi: https://ko-fi.com/defaced
 ┃ GitHub Sponsors: https://github.com/sponsors/workeffortwaste/
 ┃${colors.reset}
   `)
