@@ -57,7 +57,7 @@ if (!process.env.WORKEFFORTWASTE_SUPPORTER) {
 const options = yargs(hideBin(process.argv))
   .usage('Usage: layout-shift-gif --url <url>')
   .example('layout-shift-gif --url https://blacklivesmatter.com/ --device mobile --output layout-shift.gif')
-  .default({ d: 'mobile', o: 'layout-shift.gif', t: 'new' })
+  .default({ d: 'mobile', o: 'layout-shift.gif', t: 'new', r: false })
   .describe('u', 'Website URL')
   .describe('d', 'Device type')
   .describe('w', 'Device viewport width')
@@ -65,15 +65,18 @@ const options = yargs(hideBin(process.argv))
   .describe('c', 'Cookie filename')
   .describe('o', 'Output filename')
   .describe('t', 'CLS calculation method')
+  .describe('r', 'Save report of shifts and elements')
   .alias('u', 'url')
   .alias('d', 'device')
   .alias('w', 'width')
   .alias('h', 'height')
   .alias('c', 'cookies')
   .alias('o', 'output')
+  .alias('r', 'report')
   .alias('t', 'type')
   .number(['h', 'w'])
   .string(['u', 'd', 'c', 'o', 't'])
+  .boolean(['r'])
   .demandOption(['url'])
   .epilogue('For more information visit documentation at: \nhttp://github.com/workeffortwaste/layout-shift-gif')
   .argv
@@ -102,10 +105,47 @@ const phone = {
 
 /* Detect layout shift */
 const clsDetection = (type) => {
+  const getElementSelector = (element) => {
+    if (!element) return null
+
+    const parts = []
+
+    while (element.parentElement) {
+      let part = element.tagName.toLowerCase() // Tag name in lowercase
+
+      // Add ID if present
+      if (element.id) {
+        part += `#${element.id}`
+      }
+
+      // Add classes if present
+      if (element.className) {
+        const classes = element.className.trim().split(/\s+/).join('.')
+        part += `.${classes}`
+      }
+
+      // Add :nth-child if necessary
+      const siblings = Array.from(element.parentElement.children)
+      if (siblings.filter(el => el.tagName === element.tagName).length > 1) {
+        const index = siblings.indexOf(element) + 1
+        part += `:nth-child(${index})`
+      }
+
+      parts.unshift(part) // Add the part to the beginning of the array
+      element = element.parentElement // Move up to the parent
+    }
+
+    // Include `body` or `html` as the root
+    parts.unshift(element.tagName.toLowerCase())
+
+    return parts.join(' > ')
+  }
+
   window.cumulativeLayoutShiftScore = 0
   window.previousRect = []
   window.currentRect = []
   window.shifts = []
+  window.sources = []
   let firstTs = Number.NEGATIVE_INFINITY
   let prevTs = Number.NEGATIVE_INFINITY
 
@@ -120,12 +160,20 @@ const clsDetection = (type) => {
         }
         prevTs = entry.startTime
       }
+
       entry.sources.forEach((e) => {
         window.previousRect.push(JSON.parse(JSON.stringify(e.previousRect)))
         window.currentRect.push(JSON.parse(JSON.stringify(e.currentRect)))
         window.shifts.push(entry.value)
       })
+
+      window.sources.push({
+        value: entry.value,
+        elements: entry.sources.map((s) => getElementSelector(s.node))
+      })
+
       window.cumulativeLayoutShiftScore += entry.value
+
       window.onload = (event) => {
         observer.takeRecords()
         observer.disconnect()
@@ -216,7 +264,12 @@ const createGif = async (url, device) => {
         score: window.cumulativeLayoutShiftScore,
         previousRect: window.previousRect,
         currentRect: window.currentRect,
-        shifts: window.shifts
+        shifts: window.shifts,
+        report: {
+          url: window.location.href,
+          cls: window.cumulativeLayoutShiftScore,
+          entries: window.sources
+        }
       }
     })
     output.scaleFactor = page.viewport().deviceScaleFactor || 1
@@ -297,6 +350,12 @@ const createGif = async (url, device) => {
     // Write the GIF
     encoder.finish()
     fs.writeFileSync(options.output, encoder.out.getData())
+
+    // Save the report if requested
+    if (options.report) {
+      fs.writeFileSync(options.output.replace('.gif', '.json'), JSON.stringify(output.report))
+    }
+
     // Pass back the CLS score
     return output.score.toFixed(3)
   } catch (error) {
@@ -314,5 +373,6 @@ createGif(options.url, options.device, options.filename)
 
     console.log(`Cumulative layout shift (CLS) ${scoreColor}${e}${colors.reset}`)
     console.log(`Image succesfully saved as ${colors.blue}${options.output}${colors.reset}`)
+    if (options.report) console.log(`Report succesfully saved as ${colors.blue}${options.output.replace('.gif', '.json')}${colors.reset}`)
   })
   .catch(e => console.log(e))
