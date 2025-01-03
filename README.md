@@ -8,6 +8,44 @@ Lighthouse is a great tool for identifying your overall Cumulative Layout Shift 
 
 > **Support this project** <br/> Help support the work that goes into creating and maintaining my projects and sponsor me via [GitHub Sponsors](https://github.com/sponsors/workeffortwaste/).
 
+## Contents
+
+- [Layout Shift GIF Generator - CLI](#layout-shift-gif-generator---cli)
+  - [Contents](#contents)
+  - [What's New](#whats-new)
+    - [1.4.0 🆕](#140-)
+  - [Getting Started](#getting-started)
+    - [Installation](#installation)
+    - [Usage](#usage)
+    - [Options](#options)
+  - [Examples](#examples)
+    - [Basic Examples](#basic-examples)
+      - [Simulated Mobile Device](#simulated-mobile-device)
+      - [Simulated Desktop Device](#simulated-desktop-device)
+    - [Advanced Examples](#advanced-examples)
+      - [Supplying Cookies](#supplying-cookies)
+      - [Original CLS Calculation Method](#original-cls-calculation-method)
+  - [Device Simulation](#device-simulation)
+  - [Save JSON Report 🆕](#save-json-report-)
+  - [Hosted Version](#hosted-version)
+  - [Output](#output)
+    - [Page Screenshot](#page-screenshot)
+    - [Border Style](#border-style)
+    - [Border Colour](#border-colour)
+    - [Corner Metric](#corner-metric)
+    - [Corner Colour](#corner-colour)
+  - [Sponsors](#sponsors)
+    - [Bonus](#bonus)
+  - [Author](#author)
+
+
+## What's New
+
+### 1.4.0 🆕
+
+* Updated core dependencies including Puppeteer (Chromium) to the latest version to give more accurate readings.
+* Added the option to save a JSON report of shifted elements and their CSS selectors with the `--report` flag.
+
 ## Getting Started
 
 ### Installation
@@ -41,6 +79,7 @@ Options:
   -c, --cookies  Cookie filename                                        [string]
   -o, --output   Output filename          [string] [default: "layout-shift.gif"]
   -t, --type     CLS calculation method                [string] [default: "new"]
+  -r, --report   Save report of shifts and elements   [boolean] [default: false]
 ```
 ## Examples
 ### Basic Examples
@@ -78,7 +117,6 @@ In June 2021 Google changed how they [calculate the CLS metric](https://web.dev/
 layout-shift-gif --url https://blacklivesmatter.com/ --type old
 ```
 
-
 ## Device Simulation
 
 The tool is able to check both a desktop and a mobile viewport.
@@ -88,6 +126,14 @@ The tool is able to check both a desktop and a mobile viewport.
 - The `mobile` viewport is the Nexus 5X profile from Lighthouse.
 
 Both the CPU and the network are throttled to simulate a `good 3G network`.
+
+## Save JSON Report 🆕
+
+The tool is able to create a corresponding JSON report including the full CSS selectors for every element triggering a shift.
+
+```
+layout-shift-gif --url https://blacklivesmatter.com/ --report
+```
 
 ## Hosted Version
 
@@ -138,11 +184,11 @@ The colour of the top left corner represents where the pages overall CLS score f
 ## Sponsors
 
 If you find this project useful please considering sponsoring me on [GitHub Sponsors](https://github.com/sponsors/workeffortwaste/) and help support the work that goes into creating and maintaining my projects.
+
 ### Bonus
 
 Sponsors are able to remove the project support message from all my CLI projects, as well as access other additional perks.
 
 ## Author
 
-Chris Johnson - [defaced.dev](https://defaced.dev) - [@defaced](http://twitter.co.uk/defaced/)
-            
+Chris Johnson - [defaced.dev](https://defaced.dev) - [@defaced.dev](https://bsky.app/profile/defaced.dev) (Bluesky)            
